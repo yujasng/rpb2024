@@ -82,12 +82,6 @@ class DetermineColor(Node):
         cv2.drawContours(mask, [best_contour], 0, 255, -1)
         roi = cv2.bitwise_and(hsv_img, hsv_img, mask=mask)
         
-        image_with_contour = hsv_img.copy()
-        cv2.drawContours(image_with_contour, [best_contour], -1, (0, 255, 0), 3)
-                       # Show the image before transformation
-        cv2.imshow('Before Transformation', image_with_contour)
-        cv2.waitKey(1)
-        
         R1 = cv2.inRange(roi, (0,50,50), (10,255,255))
         R2 = cv2.inRange(roi, (170,50,50), (180,255,255))
         R = cv2.bitwise_or(R1,R2)
@@ -114,4 +108,3 @@ if __name__ == '__main__':
     rclpy.spin(detector)
     detector.destroy_node()
     rclpy.shutdown()
-    cv2.destroyAllWindows()
